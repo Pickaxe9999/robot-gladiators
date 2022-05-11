@@ -6,47 +6,8 @@ var fight = function(enemy) {
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
 
-        //if user starts a new fight
-        if(promptFight === "fight" || promptFight === "FIGHT")
-        {
-            //enemys turn
-
-            //generate random damage value based on player's attack power
-            var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
-
-            enemy.health = Math.max(0, enemy.health - damage);
-            console.log(playerInfo.name + " attacked " + enemy.name + ". " +enemy.name + " now has " + enemy.health + " health.");
-
-            //displays the results of the players attacking turn
-
-
-                if (enemy.health <= 0){
-                    window.alert(enemy.name + " has died!");
-                    break;
-                } 
-                else {
-                    window.alert(enemy.name + " still has " + enemy.health + " health left.");
-                }
-
-                //players turn
-                //generate random damage value based on player's attack power
-                var damage = randomNumber(enemy.attack - 3, enemy.attack);
-
-                playerInfo.health = Math.max(0, playerInfo.health - damage);
-                console.log(enemy.name + " attacked " + playerInfo.name + ". " +playerInfo.name + " now has " + playerInfo.health + " health.");
-
-                //displays the results of the enemys attacking turn
-                if (playerInfo.health <= 0){
-                    window.alert(enemy.name + " has died!");
-                    break;
-                } 
-                else {
-                    window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
-                }
-            }
-
         //if the player skips the fight
-        else if(promptFight === "skip" || promptFight === "SKIP"){
+        if(promptFight === "skip" || promptFight === "SKIP"){
             window.alert(playerInfo.name + " has chosen to skip the fight!");
 
             var confirmSkip = window.confirm("Are you sure you would like to quit?");
@@ -57,14 +18,40 @@ var fight = function(enemy) {
                 console.log("playerInfo.money is now " + playerInfo.money);
                 break;
             }
-            else {
-                fight(enemy);
-            }
         }
 
-        //if player selects no option displayed
-        else{
-            window.alert("Your need to choose a valid option. Try again!");
+        //if user starts a new fight
+        //enemys turn
+
+        //generate random damage value based on player's attack power
+        var damage = randomNumber(playerInfo.attack - 3, playerInfo.attack);
+
+        enemy.health = Math.max(0, enemy.health - damage);
+        console.log(playerInfo.name + " attacked " + enemy.name + ". " +enemy.name + " now has " + enemy.health + " health.");
+
+        //displays the results of the players attacking turn
+        if (enemy.health <= 0){
+            window.alert(enemy.name + " has died!");
+            break;
+        } 
+        else {
+            window.alert(enemy.name + " still has " + enemy.health + " health left.");
+        }
+
+        //players turn
+        //generate random damage value based on player's attack power
+        var damage = randomNumber(enemy.attack - 3, enemy.attack);
+
+        playerInfo.health = Math.max(0, playerInfo.health - damage);
+        console.log(enemy.name + " attacked " + playerInfo.name + ". " +playerInfo.name + " now has " + playerInfo.health + " health.");
+
+        //displays the results of the enemys attacking turn
+        if (playerInfo.health <= 0){
+            window.alert(enemy.name + " has died!");
+            break;
+        } 
+        else {
+            window.alert(playerInfo.name + " still has " + playerInfo.health + " health left.");
         }
     }
 };
@@ -154,9 +141,21 @@ var randomNumber = function(min, max){
     return value;
 }
 
+var getPlayerName = function() {
+    var name = "";
+
+    while (name === "" || name === null){
+        name = prompt("What is your robots name?")
+    }
+
+    console.log("Your robots name is " + name);
+    return name;
+}
+
+
 //variables defined
 playerInfo = {
-    name: window.prompt("What is your robot's name?"),
+    name: getPlayerName(),
     health: 100,
     attack: 10,
     money: 10,
