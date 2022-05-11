@@ -19,7 +19,11 @@ var fight = function(enemyName) {
         if(promptFight === "fight" || promptFight === "FIGHT")
         {
             //enemys turn
-            enemyHealth = enemyHealth - playerAttack;
+
+            //generate random damage value based on player's attack power
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+
+            enemyHealth = Math.max(0, enemyHealth - damage);
             console.log(playerName + " attacked " + enemyName + ". " +enemyName + " now has " + enemyHealth + " health.");
 
             //displays the results of the players attacking turn
@@ -34,7 +38,10 @@ var fight = function(enemyName) {
                 }
 
                 //players turn
-                playerHealth = playerHealth - enemyAttack;
+                //generate random damage value based on player's attack power
+                var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
+                playerHealth = Math.max(0, playerHealth - damage);
                 console.log(enemyName + " attacked " + playerName + ". " +playerName + " now has " + playerHealth + " health.");
 
                 //displays the results of the enemys attacking turn
@@ -79,7 +86,7 @@ var startGame = function() {
         if(playerHealth > 0){
             window.alert("Welcome to Robot Gladiators! Round " + (i + 1) );
             var pickedEnemyName = enemyNames[i];
-            enemyHealth = 50;
+            enemyHealth =randomNumber(40,60);
             fight(pickedEnemyName);
 
             if(i < enemyNames.length && playerHealth > 0){
@@ -163,6 +170,12 @@ var shop = function(){
             break;
     }
     
+}
+
+//randomness function of any # between 40 and 60
+var randomNumber = function(min, max){
+    var value = Math.floor(Math.random()*(max-min +1)+min);
+    return value;
 }
 
 //battle function of player vs robot
