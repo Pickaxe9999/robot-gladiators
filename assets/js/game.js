@@ -1,13 +1,13 @@
-var fight = function(enemy) {
-    //window.alert("Welcome to Robot Gladiators!"); remove
-
-
-    while(enemy.health > 0 && playerInfo.health > 0){
-        var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
-
+var fightOrSkip = function(){
+    var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
+    promptFight = promptFight.toLowerCase();
+        if (promptFight === "" || promptFight === null){
+            window.alert("You need to provide a valid answer! Please try again.");
+            return fightOrSkip();
+        }
 
         //if the player skips the fight
-        if(promptFight === "skip" || promptFight === "SKIP"){
+        if(promptFight === "skip"){
             window.alert(playerInfo.name + " has chosen to skip the fight!");
 
             var confirmSkip = window.confirm("Are you sure you would like to quit?");
@@ -16,8 +16,19 @@ var fight = function(enemy) {
                 window.alert(playerInfo.name + " has decided to skip this fight, Goodbye!");
                 playerInfo.money = playerInfo.money - 10;
                 console.log("playerInfo.money is now " + playerInfo.money);
-                break;
+                return true;
             }
+                return false;
+        }
+
+}
+
+var fight = function(enemy) {
+
+    while(enemy.health > 0 && playerInfo.health > 0){
+        //Conditionall Recursive Function call
+        if(fightOrSkip()){
+            break;
         }
 
         //if user starts a new fight
